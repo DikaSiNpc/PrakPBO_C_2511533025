@@ -55,11 +55,12 @@ public class Main {
                         akunAktif.cekInformasi();
                     }
                     break;
-
+                
                 case 0:
                     isRunning = false;
                     System.out.println("Sistem ditutup. Terima kasih!");
                     break;
+                
 
                 default:
                     System.out.println("Pilihan tidak valid!");

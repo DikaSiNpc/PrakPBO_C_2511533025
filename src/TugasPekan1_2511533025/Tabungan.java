@@ -1,10 +1,10 @@
 package TugasPekan1_2511533025;
-public class Rekening2 {
+public class Tabungan {
     String nomorRekening;
     String namaPemilik;
     double saldo;
 
-    public Rekening2(String nomor, String nama, double saldoAwal) {
+    public Tabungan(String nomor, String nama, double saldoAwal) {
         nomorRekening = nomor;
         namaPemilik = nama;
         saldo = saldoAwal;

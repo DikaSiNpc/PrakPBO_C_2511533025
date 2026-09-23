@@ -1,10 +1,10 @@
 package TugasPekan1_2511533025;
 import java.util.Scanner;
 
-public class Main1 {
+public class Play {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Rekening1 akunAktif = null; // Objek belum diinisialisasi (null)
+        Tabungan akunAktif = null; // Objek belum diinisialisasi (null)
         boolean isRunning = true;
 
         System.out.println("=== SISTEM PERBANKAN MINI ===");
@@ -31,7 +31,7 @@ public class Main1 {
                     double saldo = input.nextDouble();
 
                     // Instansiasi Object / Menjalankan Constructor
-                    akunAktif = new Rekening1(no, nama, saldo);
+                    akunAktif = new Tabungan(no, nama, saldo);
                     break;
 
                 case 2:

@@ -2,13 +2,13 @@ package TugasPekan1_2511533025;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main2 {
+public class Mulai {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
         // Menggunakan ArrayList untuk menampung banyak objek Rekening
-        ArrayList<Rekening2> daftarRekening = new ArrayList<>();
-        Rekening2 akunAktif = null; 
+        ArrayList<Simpanan> daftarRekening = new ArrayList<>();
+        Simpanan akunAktif = null; 
         boolean isRunning = true;
 
         System.out.println("=== SISTEM PERBANKAN MINI (MULTI-AKUN) ===");
@@ -46,7 +46,7 @@ public class Main2 {
                     input.nextLine(); // Membersihkan buffer
 
                     // Membuat objek baru dan menambahkannya ke ArrayList
-                    Rekening2 rekeningBaru = new Rekening2(no, nama, saldo);
+                    Simpanan rekeningBaru = new Simpanan(no, nama, saldo);
                     daftarRekening.add(rekeningBaru);
                     
                     // Otomatis jadikan akun yang baru dibuat sebagai akun aktif
@@ -87,14 +87,14 @@ public class Main2 {
                     } else {
                         System.out.println("\n--- DAFTAR REKENING TERSEDIA ---");
                         for (int i = 0; i < daftarRekening.size(); i++) {
-                            Rekening2 r = daftarRekening.get(i);
+                        	Simpanan r = daftarRekening.get(i);
                             System.out.println((i + 1) + ". No: " + r.nomorRekening + " | Nama: " + r.namaPemilik);
                         }
                         System.out.print("Masukkan Nomor Rekening yang ingin diaktifkan: ");
                         String cariNo = input.nextLine();
 
                         boolean ditemukan = false;
-                        for (Rekening2 r : daftarRekening) {
+                        for (Simpanan r : daftarRekening) {
                             if (r.nomorRekening.equals(cariNo)) {
                                 akunAktif = r;
                                 System.out.println("Berhasil beralih ke rekening atas nama: " + akunAktif.namaPemilik);
