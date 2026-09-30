@@ -1,13 +1,13 @@
-package TugasPekan3_2511533025;
+package Pekan4_2511533025;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainPerbankan3 {
+public class MainPerbankan {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Rekening3> daftarRekening = new ArrayList<>();
-        Rekening3 akunAktif = null;
+        ArrayList<Rekening> daftarRekening = new ArrayList<>();
+        Rekening akunAktif = null;
         int pilihan;
 
         do {
@@ -25,16 +25,17 @@ public class MainPerbankan3 {
             System.out.println("3. Tarik Tunai");
             System.out.println("4. Cek Informasi Rekening");
             System.out.println("5. Ganti Akun (Pilih Akun)");
-            System.out.println("6. Tampilkan Riwayat Transaksi (Cetak Mutasi)");
+            System.out.println("6. Tampilkan Riwayat Transaksi");
+            System.out.println("7. Simulasi Akhir Bulan (Khusus Tabungan)");
             System.out.println("0. Keluar");
             System.out.print("Pilih menu: ");
             
             pilihan = scanner.nextInt();
-            scanner.nextLine(); // Membersihkan buffer
+            scanner.nextLine(); // Clear buffer
 
             switch (pilihan) {
-                // ==================== TUGAS POIN 1 ====================
                 case 1:
+                    // Modifikasi Case 1: Buka Rekening Baru (Tugas 1)
                     System.out.print("Masukkan No. Rekening: ");
                     String no = scanner.nextLine();
                     System.out.print("Masukkan Nama Pemilik: ");
@@ -42,12 +43,35 @@ public class MainPerbankan3 {
                     System.out.print("Masukkan Saldo Awal: ");
                     double saldoAwal = scanner.nextDouble();
                     scanner.nextLine(); // Clear buffer
-                    
-                    // Minta user menginputkan PIN (String angka 6 digit) sebelum instansiasi
-                    System.out.print("Masukkan PIN (6 digit): ");
+                    System.out.print("Buat PIN (6 digit): ");
                     String pin = scanner.nextLine();
-                    
-                    Rekening3 rekBaru = new Rekening3(no, nama, saldoAwal, pin);
+
+                    // 1. Opsi Produk
+                    System.out.println("Pilih Produk: 1. Tabungan Umum | 2. Giro Bisnis");
+                    System.out.print("Pilihan Anda: ");
+                    int jenisProduk = scanner.nextInt();
+                    scanner.nextLine(); // Clear buffer
+
+                    Rekening rekBaru = null;
+
+                    if (jenisProduk == 1) {
+                        // 2. Instansiasi RekeningTabungan
+                        System.out.print("Masukkan Suku Bunga (%): ");
+                        double sukuBunga = scanner.nextDouble();
+                        scanner.nextLine();
+                        rekBaru = new RekeningTabungan(no, nama, saldoAwal, pin, sukuBunga);
+                    } else if (jenisProduk == 2) {
+                        // 3. Instansiasi RekeningGiro
+                        System.out.print("Masukkan Batas Overdraft (Limit Pinjaman): ");
+                        double batasOverdraft = scanner.nextDouble();
+                        scanner.nextLine();
+                        rekBaru = new RekeningGiro(no, nama, saldoAwal, pin, batasOverdraft);
+                    } else {
+                        System.out.println("Pilihan produk tidak valid! Pembuatan rekening dibatalkan.");
+                        break;
+                    }
+
+                    // 4. Upcasting: Menyimpan ke daftarRekening bertipe ArrayList<Rekening>
                     daftarRekening.add(rekBaru);
                     akunAktif = rekBaru; // Otomatis jadikan akun aktif
                     break;
@@ -62,21 +86,18 @@ public class MainPerbankan3 {
                     }
                     break;
 
-                // ==================== TUGAS POIN 2 (Menu 3) ====================
                 case 3:
                     if (akunAktif == null) {
                         System.out.println("Peringatan: Pilih atau buat akun terlebih dahulu!");
                     } else {
                         System.out.print("Masukkan PIN Anda: ");
-                        String pinInput = scanner.nextLine();
-                        
-                        // Memanggil fungsi otentikasi
-                        if (akunAktif.otentikasi(pinInput)) {
+                        String inputPin = scanner.nextLine();
+                        if (akunAktif.otentikasi(inputPin)) {
                             System.out.print("Masukkan nominal tarik tunai: ");
                             double tarik = scanner.nextDouble();
                             akunAktif.tarikTunai(tarik);
                         } else {
-                            System.out.println("Akses Ditolak: PIN yang Anda masukkan salah!");
+                            System.out.println("Transaksi Gagal: PIN salah!");
                         }
                     }
                     break;
@@ -102,7 +123,7 @@ public class MainPerbankan3 {
                         scanner.nextLine(); // Clear buffer
                         
                         if (indeks >= 0 && indeks < daftarRekening.size()) {
-                            Rekening3 target = daftarRekening.get(indeks);
+                            Rekening target = daftarRekening.get(indeks);
                             System.out.print("Masukkan PIN akun target: ");
                             String pinAkses = scanner.nextLine();
                             
@@ -110,7 +131,7 @@ public class MainPerbankan3 {
                                 akunAktif = target;
                                 System.out.println("Berhasil beralih ke akun " + akunAktif.getNamaPemilik());
                             } else {
-                                System.out.println("Akses Ditolak: PIN yang Anda masukkan salah!");
+                                System.out.println("Gagal beralih: PIN salah!");
                             }
                         } else {
                             System.out.println("Pilihan tidak valid.");
@@ -118,7 +139,6 @@ public class MainPerbankan3 {
                     }
                     break;
 
-                // ==================== TUGAS POIN 2 (Menu 6) ====================
                 case 6: 
                     if (akunAktif == null) {
                         System.out.println("Peringatan: Pilih atau buat akun terlebih dahulu!");
@@ -126,17 +146,34 @@ public class MainPerbankan3 {
                         System.out.print("Masukkan PIN Anda: ");
                         String inputPin = scanner.nextLine();
                         if (akunAktif.otentikasi(inputPin)) {
-                            if (akunAktif.getRiwayatTransaksi().isEmpty()) { // Menggunakan getter agar sesuai encapsulation
+                            if (akunAktif.getRiwayatTransaksi().isEmpty()) {
                                 System.out.println("Belum ada riwayat transaksi pada akun ini.");
                             } else {
                                 System.out.println("--- RIWAYAT TRANSAKSI ---");
-                                for (Object trx : akunAktif.getRiwayatTransaksi()) { // Atau gunakan tipe objek Transaksi jika ada kelasnya
-                                    System.out.println(trx); // Memanggil representasi transaksi
+                                for (Transaksi trx : akunAktif.getRiwayatTransaksi()) {
+                                    System.out.println(trx);
                                 }
                                 System.out.println("----------------------------------");
                             }
                         } else {
                             System.out.println("Akses Ditolak: PIN salah!");
+                        }
+                    }
+                    break;
+
+                case 7:
+                    // Simulasi Waktu Akhir Bulan (Tugas 2)
+                    if (akunAktif == null) {
+                        System.out.println("Peringatan: Pilih atau buat akun terlebih dahulu!");
+                    } else {
+                        // 2. Memeriksa tipe objek dengan instanceof
+                        if (akunAktif instanceof RekeningTabungan) {
+                            // 3. Downcasting ke tipe RekeningTabungan & memanggil method
+                            RekeningTabungan tabungan = (RekeningTabungan) akunAktif;
+                            tabungan.tambahBungaAkhirBulan();
+                        } else {
+                            // 4. Pesan penolakan jika bukan RekeningTabungan
+                            System.out.println("Gagal: Fitur bunga akhir bulan hanya berlaku untuk Rekening Tabungan.");
                         }
                     }
                     break;

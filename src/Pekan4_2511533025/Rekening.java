@@ -1,46 +1,45 @@
-package Pekan3_2511533025;
+package Pekan4_2511533025;
 import java.util.ArrayList;
 
 public class Rekening {
-    // 1. Mengunci atribut dengan 'private'
+    // 1. Atribut private
     private String nomorRekening;
     private String namaPemilik;
-    private double saldo;
     private String pin; // Data sensitif!
 
-    // Implementasi Asosiasi (1-to-many): Satu rekening memiliki banyak transaksi
-    private ArrayList<Transaksi> riwayatTransaksi;
+    // Gunakan protected agar Subclass bisa mengaksesnya langsung
+    protected double saldo;
+    protected ArrayList<Transaksi> riwayatTransaksi;
 
-    // 2. Modifikasi Constructor untuk menerima PIN awal
+    // Constructor
     public Rekening(String nomor, String nama, double saldoAwal, String pinAwal) {
         this.nomorRekening = nomor;
         this.namaPemilik = nama;
         this.saldo = saldoAwal;
 
         // Validasi PIN di dalam Constructor
-        if (pinAwal.length() == 6) {
+        if (pinAwal != null && pinAwal.length() == 6) {
             this.pin = pinAwal;
         } else {
             System.out.println("Peringatan: PIN harus 6 digit! Menggunakan PIN default 123456");
             this.pin = "123456";
         }
 
-        // Wajib menginisialisasi ArrayList di dalam constructor agar tidak NullPointerException
+        // Inisialisasi ArrayList
         this.riwayatTransaksi = new ArrayList<>();
 
         System.out.println("Rekening atas nama " + namaPemilik + " berhasil dibuat.");
     }
 
-    // 3. Getter untuk atribut yang diizinkan dibaca publik
+    // Getter
     public String getNomorRekening() { return nomorRekening; }
     public String getNamaPemilik() { return namaPemilik; }
     
-    // Getter untuk mengakses riwayat transaksi dari luar kelas
     public ArrayList<Transaksi> getRiwayatTransaksi() {
         return this.riwayatTransaksi;
     }
 
-    // 4. Method Otentikasi Internal (Validasi Enkapsulasi)
+    // Otentikasi Internal
     public boolean otentikasi(String inputPin) {
         return this.pin.equals(inputPin);
     }
@@ -49,7 +48,6 @@ public class Rekening {
         if (nominal > 0) {
             saldo += nominal;
             
-            // Merekam riwayat (Pembuatan objek Transaksi di dalam method)
             String idTrx = "TRX-S-" + System.currentTimeMillis();
             Transaksi trxBaru = new Transaksi(idTrx, "Kredit", nominal);
             riwayatTransaksi.add(trxBaru);            
@@ -67,7 +65,6 @@ public class Rekening {
         } else {
             saldo -= nominal;
             
-            // Merekam riwayat transaksi tarik tunai (Debit)
             String idTrx = "TRX-T-" + System.currentTimeMillis();
             Transaksi trxBaru = new Transaksi(idTrx, "Debit", nominal);
             riwayatTransaksi.add(trxBaru);

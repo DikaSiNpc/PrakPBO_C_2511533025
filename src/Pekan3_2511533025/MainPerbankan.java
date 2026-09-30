@@ -1,8 +1,6 @@
 package Pekan3_2511533025;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class MainPerbankan {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -119,9 +117,15 @@ public class MainPerbankan {
                         System.out.print("Masukkan PIN Anda: ");
                         String inputPin = scanner.nextLine();
                         if (akunAktif.otentikasi(inputPin)) {
-                            System.out.println("--- RIWAYAT TRANSAKSI ---");
-                            // Catatan: Pastikan riwayatTransaksi di Rekening diakses melalui method/akses yang tepat
-                            akunAktif.cekInformasi();
+                            if (akunAktif.getRiwayatTransaksi().isEmpty()) { // Menggunakan getter agar sesuai encapsulation
+                                System.out.println("Belum ada riwayat transaksi pada akun ini.");
+                            } else {
+                                System.out.println("--- RIWAYAT TRANSAKSI ---");
+                                for (Object trx : akunAktif.getRiwayatTransaksi()) { // Atau gunakan tipe objek Transaksi jika ada kelasnya
+                                    System.out.println(trx); // Memanggil representasi transaksi
+                                }
+                                System.out.println("----------------------------------");
+                            }
                         } else {
                             System.out.println("Akses Ditolak: PIN salah!");
                         }

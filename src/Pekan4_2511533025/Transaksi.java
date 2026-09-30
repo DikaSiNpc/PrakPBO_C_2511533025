@@ -1,13 +1,13 @@
-package TugasPekan3_2511533025;
+package Pekan4_2511533025;
 
-public class Transaksi3 {
+public class Transaksi {
     // 1. Mengubah semua atribut menjadi private
     private String idTransaksi;
     private String jenis;
     private double nominal;
 
     // Constructor
-    public Transaksi3(String id, String jenis, double nominal) {
+    public Transaksi(String id, String jenis, double nominal) {
         this.idTransaksi = id;
         this.jenis = jenis;
         this.nominal = nominal;
