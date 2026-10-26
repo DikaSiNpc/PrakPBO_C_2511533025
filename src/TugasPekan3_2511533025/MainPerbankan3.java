@@ -1,15 +1,12 @@
 package TugasPekan3_2511533025;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class MainPerbankan3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Rekening3> daftarRekening = new ArrayList<>();
         Rekening3 akunAktif = null;
         int pilihan;
-
         do {
             System.out.println("\n=== SISTEM PERBANKAN MINI (MULTI-AKUN) ===");
             System.out.println("------------------------------------------");
@@ -31,9 +28,7 @@ public class MainPerbankan3 {
             
             pilihan = scanner.nextInt();
             scanner.nextLine(); // Membersihkan buffer
-
             switch (pilihan) {
-                // ==================== TUGAS POIN 1 ====================
                 case 1:
                     System.out.print("Masukkan No. Rekening: ");
                     String no = scanner.nextLine();
@@ -61,7 +56,6 @@ public class MainPerbankan3 {
                         akunAktif.setorTunai(setor);
                     }
                     break;
-
                 // ==================== TUGAS POIN 2 (Menu 3) ====================
                 case 3:
                     if (akunAktif == null) {

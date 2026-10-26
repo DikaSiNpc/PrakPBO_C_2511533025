@@ -1,6 +1,5 @@
 package Pekan5_2511533025;
 
-
 public class Transaksi {
     // 1. Mengubah semua atribut menjadi private
     private String idTransaksi;

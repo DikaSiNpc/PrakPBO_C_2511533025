@@ -71,7 +71,6 @@ public class Rekening2 {
             );
 
         } else if (nominal > saldo) {
-
             System.out.println(
                     "Transaksi Gagal: Saldo tidak mencukupi. "
                     + "Saldo Anda: Rp"
@@ -81,15 +80,11 @@ public class Rekening2 {
         } else {
 
             saldo -= nominal;
-
             String idTrx =
                     "TRX-T-" + System.currentTimeMillis();
-
             Transaksi2 trxBaru =
                     new Transaksi2(idTrx, "Debit", nominal);
-
             riwayatTransaksi.add(trxBaru);
-
             System.out.println(
                     "Tarik tunai Rp"
                     + nominal
@@ -103,26 +98,18 @@ public class Rekening2 {
     // METHOD CETAK MUTASI
     // =========================
     public void cetakMutasi() {
-
         System.out.println("\n===== MUTASI REKENING =====");
         System.out.println("No. Rekening : " + nomorRekening);
         System.out.println("Nama Pemilik : " + namaPemilik);
         System.out.println("---------------------------");
-
         if (riwayatTransaksi.isEmpty()) {
-
-            System.out.println(
-                    "Belum ada transaksi pada rekening ini"
-            );
+            System.out.println("Belum ada transaksi pada rekening ini");
 
         } else {
-
             for (Transaksi2 trx : riwayatTransaksi) {
-
                 trx.cetakDetail();
             }
         }
-
         System.out.println("===========================");
     }
 

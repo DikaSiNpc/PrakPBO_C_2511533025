@@ -2,234 +2,113 @@ package TugasPekan2_2511533025;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class MainPerbankan2 {
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Rekening2> daftarRekening =
-                new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+        ArrayList<Rekening2> daftarRekening = new ArrayList<>();
         Rekening2 akunAktif = null;
-        int pilihan;
-        do {
-            System.out.println(
-                    "\n=== SISTEM PERBANKAN MINI (MULTI-AKUN) ==="
-            );
+        boolean isRunning = true;
 
-            System.out.println("------------------------------------------");
+        System.out.println("=== SISTEM PERBANKAN MINI ===");
 
-            if (akunAktif == null) {
-
-                System.out.println(
-                        "Akun Aktif : Tidak ada akun yang dipilih"
-                );
-            } else {
-
-                System.out.println(
-                        "Akun Aktif : "
-                        + akunAktif.namaPemilik
-                        + " ("
-                        + akunAktif.nomorRekening
-                        + ")"
-                );
-            }
-
-            System.out.println("------------------------------------------");
-
-            System.out.println("Menu Utama:");
+        while (isRunning) {
+            System.out.println("\nMenu Utama:");
             System.out.println("1. Buka Rekening Baru");
             System.out.println("2. Setor Tunai");
             System.out.println("3. Tarik Tunai");
             System.out.println("4. Cek Informasi Rekening");
-            System.out.println("5. Ganti Akun (Pilih Akun)");
-            System.out.println("6. Cetak Mutasi (Riwayat)");
+            System.out.println("5. Ganti Akun Aktif");
+            System.out.println("6. Cetak Mutasi (Riwayat)"); // Gambar 3 (Tugas 2)[cite: 4]
             System.out.println("0. Keluar");
-
             System.out.print("Pilih menu: ");
 
-            pilihan = scanner.nextInt();
-            scanner.nextLine();
+            int pilihan = input.nextInt();
+            input.nextLine(); 
 
             switch (pilihan) {
-
-                // =========================
-                // 1. BUKA REKENING
-                // =========================
                 case 1:
+                    System.out.print("Masukkan No Rekening: ");
+                    String no = input.nextLine();
+                    System.out.print("Masukkan Nama Pemilik: ");
+                    String nama = input.nextLine();
+                    System.out.print("Masukkan Saldo Awal: ");
+                    double saldo = input.nextDouble();
 
-                    System.out.print(
-                            "Masukkan No. Rekening: "
-                    );
-
-                    String no = scanner.nextLine();
-
-                    System.out.print(
-                            "Masukkan Nama Pemilik: ");
-                    String nama = scanner.nextLine();
-
-                    System.out.print(
-                            "Masukkan Saldo Awal: ");
-
-                    double saldoAwal =
-                            scanner.nextDouble();
-
-                    Rekening2 rekBaru =
-                            new Rekening2(
-                                    no,
-                                    nama,
-                                    saldoAwal
-                            );
-                    daftarRekening.add(rekBaru);
-                    akunAktif = rekBaru;
-
+                    Rekening2 rekeningBaru = new Rekening2(no, nama, saldo);
+                    daftarRekening.add(rekeningBaru);
+                    akunAktif = rekeningBaru;
                     break;
 
-                // =========================
-                // 2. SETOR TUNAI
-                // =========================
                 case 2:
-
                     if (akunAktif == null) {
-                        System.out.println(
-                                "Peringatan: Pilih atau buat akun terlebih dahulu!"
-                        );
-
+                        System.out.println("Error: Mohon maaf, Anda belum memilih rekening!");
                     } else {
-                        System.out.print(
-                                "Masukkan nominal setor tunai: "
-                        );
-                        double setor =
-                                scanner.nextDouble();
-
+                        System.out.print("Masukkan nominal setor: ");
+                        double setor = input.nextDouble();
                         akunAktif.setorTunai(setor);
                     }
                     break;
 
-                // =========================
-                // 3. TARIK TUNAI
-                // =========================
                 case 3:
-
                     if (akunAktif == null) {
-
-                        System.out.println(
-                                "Peringatan: Pilih atau buat akun terlebih dahulu!"
-                        );
-
+                        System.out.println("Error: Mohon maaf, Anda belum memilih rekening!");
                     } else {
-
-                        System.out.print(
-                                "Masukkan nominal tarik tunai: "
-                        );
-                        double tarik =
-                                scanner.nextDouble();
+                        System.out.print("Masukkan nominal tarik: ");
+                        double tarik = input.nextDouble();
                         akunAktif.tarikTunai(tarik);
                     }
                     break;
 
-                // =========================
-                // 4. CEK INFORMASI
-                // =========================
                 case 4:
-
                     if (akunAktif == null) {
-
-                        System.out.println(
-                                "Peringatan: Pilih atau buat akun terlebih dahulu!"
-                        );
-
+                        System.out.println("Error: Anda belum memilih rekening!");
                     } else {
-
                         akunAktif.cekInformasi();
                     }
                     break;
 
-                // =========================
-                // 5. GANTI AKUN
-                // =========================
                 case 5:
-
                     if (daftarRekening.isEmpty()) {
-                        System.out.println(
-                                "Belum ada rekening yang terdaftar."
-                        );
+                        System.out.println("Error: Belum ada rekening yang terdaftar!");
                     } else {
+                        System.out.print("Masukkan No Rekening yang ingin diaktifkan: ");
+                        String cariNo = input.nextLine();
+                        boolean ditemukan = false;
 
-                        System.out.println(
-                                "--- DAFTAR AKUN ---"
-                        );
-                        for (
-                                int i = 0;
-                                i < daftarRekening.size();
-                                i++
-                        ) {
-                            System.out.println(
-                                    (i + 1)
-                                    + ". "
-                                    + daftarRekening
-                                            .get(i)
-                                            .namaPemilik
-                                    + " ("
-                                    + daftarRekening
-                                            .get(i)
-                                            .nomorRekening
-                                    + ")"
-                            );
+                        for (Rekening2 rek : daftarRekening) {
+                            if (rek.nomorRekening.equalsIgnoreCase(cariNo)) {
+                                akunAktif = rek;
+                                ditemukan = true;
+                                System.out.println("Akun aktif berhasil diubah ke atas nama: " + akunAktif.namaPemilik);
+                                break;
+                            }
                         }
-                        System.out.print(
-                                "Pilih nomor akun: "
-                        );
-                        int indeks =
-                                scanner.nextInt() - 1;
-                        if (
-                                indeks >= 0
-                                && indeks < daftarRekening.size()
-                        ) {
-                            akunAktif =
-                                    daftarRekening.get(indeks);
 
-                            System.out.println(
-                                    "Berhasil beralih ke akun "
-                                    + akunAktif.namaPemilik);
-                        } else {
-
-                            System.out.println(
-                                    "Pilihan tidak valid."
-                            );
+                        if (!ditemukan) {
+                            System.out.println("Error: Nomor rekening tidak ditemukan!");
                         }
                     }
                     break;
 
-                // =========================
-                // 6. CETAK MUTASI
-                // =========================
                 case 6:
-
+                    // Gambar 3 (Tugas 2): Memanggil method cetakMutasi()[cite: 4]
                     if (akunAktif == null) {
-                        System.out.println(
-                                "Peringatan: Pilih atau buat akun terlebih dahulu!"
-                        );
-
+                        System.out.println("Error: Anda belum memilih rekening!");
                     } else {
-                        akunAktif.cetakMutasi();
+                        akunAktif.cetakMutasi(); //[cite: 4]
                     }
                     break;
 
-                // =========================
-                // 0. KELUAR
-                // =========================
                 case 0:
-
-                    System.out.println(
-                            "Terima kasih telah menggunakan sistem perbankan."
-                    );
-
+                    isRunning = false;
+                    System.out.println("Sistem ditutup. Terima kasih!");
                     break;
+
                 default:
-                    System.out.println(
-                            "Pilihan tidak valid. Silakan coba lagi."
-                    );
+                    System.out.println("Pilihan tidak valid!");
             }
-        } while (pilihan != 0);
-        scanner.close();
+        }
+        input.close();
     }
 }

@@ -14,11 +14,7 @@ public class Rekening1 {
 
         // Inisialisasi riwayat transaksi
         this.riwayatTransaksi = new ArrayList<>();
-        System.out.println(
-                "Rekening atas nama "
-                + namaPemilik
-                + " berhasil dibuat."
-        );
+        System.out.println("Rekening atas nama " + namaPemilik + " berhasil dibuat.");
     }
     public void setorTunai(double nominal) {
 
@@ -34,33 +30,19 @@ public class Rekening1 {
             // Menambahkan transaksi ke riwayat
             riwayatTransaksi.add(trxBaru);
 
-            System.out.println(
-                    "Setor tunai Rp"
-                    + nominal
-                    + " berhasil. Saldo saat ini: Rp"
-                    + saldo
-            );
+            System.out.println("Setor tunai Rp" + nominal + " berhasil. Saldo saat ini: Rp" + saldo);
 
         } else {
-
-            System.out.println(
-                    "Gagal: Nominal setor harus lebih dari 0!"
-            );
+            System.out.println("Gagal: Nominal setor harus lebih dari 0!");
         }
     }
     public void tarikTunai(double nominal) {
 
         if (nominal < 10000) {
-            System.out.println(
-                    "Transaksi Gagal : Minimal nominal penarikan 10.000"
-            );
+            System.out.println("Transaksi Gagal : Minimal nominal penarikan 10.000");
 
         } else if (nominal > saldo) {
-            System.out.println(
-                    "Transaksi Gagal: Saldo tidak mencukupi. "
-                    + "Saldo Anda: Rp"
-                    + saldo
-            );
+            System.out.println("Transaksi Gagal: Saldo tidak mencukupi. " + "Saldo Anda: Rp" + saldo);
 
         } else {
 
@@ -81,12 +63,7 @@ public class Rekening1 {
 
             // Simpan transaksi ke riwayat
             riwayatTransaksi.add(trxBaru);
-            System.out.println(
-                    "Tarik tunai Rp"
-                    + nominal
-                    + " berhasil. Saldo saat ini: Rp"
-                    + saldo
-            );
+            System.out.println("Tarik tunai Rp" + nominal + " berhasil. Saldo saat ini: Rp" + saldo);
         }
     }
     public void cekInformasi() {

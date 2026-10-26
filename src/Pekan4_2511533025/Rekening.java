@@ -5,7 +5,7 @@ public class Rekening {
     // 1. Atribut private
     private String nomorRekening;
     private String namaPemilik;
-    private String pin; // Data sensitif!
+    private String pin; 
 
     // Gunakan protected agar Subclass bisa mengaksesnya langsung
     protected double saldo;
