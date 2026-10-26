@@ -1,47 +1,37 @@
 package TugasPekan2_2511533025;
-
 import java.util.ArrayList;
-
-public class SimpananBank {
-
+public class Rekening1 {
     String nomorRekening;
     String namaPemilik;
     double saldo;
-
     // Satu rekening memiliki banyak transaksi
-    ArrayList<Pelunasan> riwayatTransaksi;
+    ArrayList<Transaksi1> riwayatTransaksi;
 
-    public SimpananBank(String nomor, String nama, double saldoAwal) {
-
+    public Rekening1(String nomor, String nama, double saldoAwal) {
         this.nomorRekening = nomor;
         this.namaPemilik = nama;
         this.saldo = saldoAwal;
 
         // Inisialisasi riwayat transaksi
         this.riwayatTransaksi = new ArrayList<>();
-
         System.out.println(
                 "Rekening atas nama "
                 + namaPemilik
                 + " berhasil dibuat."
         );
     }
-
-    // =========================
-    // METHOD SETOR TUNAI
-    // =========================
     public void setorTunai(double nominal) {
 
         if (nominal > 0) {
-
             saldo += nominal;
+            // Membuat ID transaksi setor tunai
+            String idTrx = "TRX-S-" + System.currentTimeMillis();
 
-            String idTrx =
-                    "TRX-S-" + System.currentTimeMillis();
+            // Membuat objek transaksi
+            Transaksi1 trxBaru =
+                    new Transaksi1(idTrx, "Kredit", nominal);
 
-            Pelunasan trxBaru =
-                    new Pelunasan(idTrx, "Kredit", nominal);
-
+            // Menambahkan transaksi ke riwayat
             riwayatTransaksi.add(trxBaru);
 
             System.out.println(
@@ -58,20 +48,14 @@ public class SimpananBank {
             );
         }
     }
-
-    // =========================
-    // METHOD TARIK TUNAI
-    // =========================
     public void tarikTunai(double nominal) {
 
         if (nominal < 10000) {
-
             System.out.println(
                     "Transaksi Gagal : Minimal nominal penarikan 10.000"
             );
 
         } else if (nominal > saldo) {
-
             System.out.println(
                     "Transaksi Gagal: Saldo tidak mencukupi. "
                     + "Saldo Anda: Rp"
@@ -80,16 +64,23 @@ public class SimpananBank {
 
         } else {
 
+            // Saldo dikurangi setelah penarikan berhasil
             saldo -= nominal;
 
+            // ==============================
+            // TUGAS 1: REKAM TRANSAKSI TARIK
+            // ==============================
+
+            // ID transaksi menggunakan prefix TRX-T-
             String idTrx =
                     "TRX-T-" + System.currentTimeMillis();
 
-            Pelunasan trxBaru =
-                    new Pelunasan(idTrx, "Debit", nominal);
+            // Jenis transaksi dicatat sebagai Debit
+            Transaksi1 trxBaru =
+                    new Transaksi1(idTrx, "Debit", nominal);
 
+            // Simpan transaksi ke riwayat
             riwayatTransaksi.add(trxBaru);
-
             System.out.println(
                     "Tarik tunai Rp"
                     + nominal
@@ -98,49 +89,11 @@ public class SimpananBank {
             );
         }
     }
-
-    // =========================
-    // METHOD CETAK MUTASI
-    // =========================
-    public void cetakMutasi() {
-
-        System.out.println("\n===== MUTASI REKENING =====");
+    public void cekInformasi() {
+        System.out.println("--- INFO REKENING ---");
         System.out.println("No. Rekening : " + nomorRekening);
         System.out.println("Nama Pemilik : " + namaPemilik);
-        System.out.println("---------------------------");
-
-        if (riwayatTransaksi.isEmpty()) {
-
-            System.out.println(
-                    "Belum ada transaksi pada rekening ini"
-            );
-
-        } else {
-
-            for (Pelunasan trx : riwayatTransaksi) {
-
-                trx.cetakDetail();
-            }
-        }
-
-        System.out.println("===========================");
-    }
-
-    // =========================
-    // METHOD CEK INFORMASI
-    // =========================
-    public void cekInformasi() {
-
-        System.out.println("--- INFO REKENING ---");
-        System.out.println(
-                "No. Rekening : " + nomorRekening
-        );
-        System.out.println(
-                "Nama Pemilik : " + namaPemilik
-        );
-        System.out.println(
-                "Saldo Akhir  : Rp" + saldo
-        );
+        System.out.println("Saldo Akhir  : Rp" + saldo);
         System.out.println("---------------------");
     }
 }

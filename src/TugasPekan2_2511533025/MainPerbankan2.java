@@ -2,13 +2,13 @@ package TugasPekan2_2511533025;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-public class MulaiPerbankan {
+public class MainPerbankan2 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<SimpananBank> daftarRekening =
+        ArrayList<Rekening2> daftarRekening =
                 new ArrayList<>();
-        SimpananBank akunAktif = null;
+        Rekening2 akunAktif = null;
         int pilihan;
         do {
             System.out.println(
@@ -72,8 +72,8 @@ public class MulaiPerbankan {
                     double saldoAwal =
                             scanner.nextDouble();
 
-                    SimpananBank rekBaru =
-                            new SimpananBank(
+                    Rekening2 rekBaru =
+                            new Rekening2(
                                     no,
                                     nama,
                                     saldoAwal

@@ -2,12 +2,12 @@ package TugasPekan2_2511533025;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-public class PlayPerbankan {
+public class MainPerbankan1 {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<TabunganBank> daftarRekening = new ArrayList<>();
-        TabunganBank akunAktif = null;
+        ArrayList<Rekening1> daftarRekening = new ArrayList<>();
+        Rekening1 akunAktif = null;
         int pilihan;
         do {
             System.out.println("\n=== SISTEM PERBANKAN MINI (MULTI-AKUN) ===");
@@ -44,8 +44,8 @@ public class PlayPerbankan {
 
                     System.out.print("Masukkan Saldo Awal: ");
                     double saldoAwal = scanner.nextDouble();
-                    TabunganBank rekBaru =
-                            new TabunganBank(no, nama, saldoAwal);
+                    Rekening1 rekBaru =
+                            new Rekening1(no, nama, saldoAwal);
 
                     daftarRekening.add(rekBaru);
                     akunAktif = rekBaru;
@@ -123,7 +123,7 @@ public class PlayPerbankan {
 
                         } else {
                             System.out.println("--- RIWAYAT TRANSAKSI ---");
-                            for (Pembayaran trx :
+                            for (Transaksi1 trx :
                                     akunAktif.riwayatTransaksi) {
 
                                 System.out.println(trx);
